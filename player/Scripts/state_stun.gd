@@ -17,6 +17,7 @@ func init() -> void:
 	player.player_damaged.connect(_player_damaged)
 
 func enter() -> void:
+	print("ENTER STUN STATE")
 	player.animation_player.animation_finished.connect(_animation_finished)
 	
 	direction = player.global_position.direction_to(hurt_box.global_position)
@@ -29,6 +30,7 @@ func enter() -> void:
 	pass
 
 func exit() -> void:
+	print("FINISH STUN STATE")
 	next_state = null
 	player.animation_player.animation_finished.disconnect(_animation_finished)
 	pass

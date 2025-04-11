@@ -1,0 +1,60 @@
+[gd_scene load_steps=8 format=3 uid="uid://cqvyvhgsk1wne"]
+
+[ext_resource type="PackedScene" uid="uid://ssg5er4gsaox" path="res://Enemies/Slime/Slime.tscn" id="1_kn5wg"]
+[ext_resource type="PackedScene" uid="uid://dkehcouxttbcf" path="res://player/scene/player.tscn" id="2_xbyuw"]
+[ext_resource type="PackedScene" uid="uid://cj45g7vdbvt6n" path="res://Enemies/Skeleton/Skeleton.tscn" id="3_kn5ci"]
+[ext_resource type="Script" path="res://General Nodes/spawner.gd" id="4_1h6dj"]
+[ext_resource type="PackedScene" uid="uid://4gtwhhf2owpd" path="res://Tile Map/map2.tscn" id="5_48lp8"]
+[ext_resource type="PackedScene" uid="uid://vo1t7vy678dt" path="res://GUI/player_record/player_record.tscn" id="6_sc76j"]
+[ext_resource type="Script" path="res://GUI/player_record/player_timer.gd" id="7_r15js"]
+
+[node name="MainLevel" type="Node2D"]
+position = Vector2(-4, -3)
+scale = Vector2(1.48002, 1.15052)
+
+[node name="Slime" parent="." instance=ExtResource("1_kn5wg")]
+position = Vector2(294, 155)
+
+[node name="Player" parent="." instance=ExtResource("2_xbyuw")]
+position = Vector2(204, 139)
+
+[node name="Skeleton" parent="." instance=ExtResource("3_kn5ci")]
+position = Vector2(245, 156)
+
+[node name="Spawner1" type="Node2D" parent="."]
+position = Vector2(106, 124)
+script = ExtResource("4_1h6dj")
+obstacle = ExtResource("3_kn5ci")
+
+[node name="Spawner2" type="Node2D" parent="."]
+position = Vector2(130, 454)
+script = ExtResource("4_1h6dj")
+obstacle = ExtResource("1_kn5wg")
+
+[node name="Spawner3" type="Node2D" parent="."]
+position = Vector2(556.074, 112.123)
+script = ExtResource("4_1h6dj")
+obstacle = ExtResource("1_kn5wg")
+
+[node name="Spawner4" type="Node2D" parent="."]
+position = Vector2(543.912, 450.231)
+script = ExtResource("4_1h6dj")
+obstacle = ExtResource("3_kn5ci")
+
+[node name="Spawner5" type="Node2D" parent="."]
+position = Vector2(366.887, 251.191)
+script = ExtResource("4_1h6dj")
+obstacle = ExtResource("3_kn5ci")
+spawn_time = 10
+
+[node name="Map2" parent="." instance=ExtResource("5_48lp8")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PlayerRecord" parent="CanvasLayer" instance=ExtResource("6_sc76j")]
+
+[node name="Timer" type="Timer" parent="CanvasLayer/PlayerRecord"]
+autostart = true
+script = ExtResource("7_r15js")
+
+[connection signal="timeout" from="CanvasLayer/PlayerRecord/Timer" to="CanvasLayer/PlayerRecord/Timer" method="_on_timeout"]

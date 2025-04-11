@@ -9,11 +9,12 @@ var attacking : bool = false
 @onready var audio : AudioStreamPlayer2D = $"../../Audio/AudioStreamPlayer2D"
 
 @onready var walk : State_Walk = $"../Walk"
-@onready var idle : State_Idle = $"../Idle"
+@onready var idle : State = $"../Idle"
 @onready var hurt_box: HurtBox = $"../../Sprite2D/HurtBox"
 
 
 func enter() -> void:
+	print("ENTER ATTACK STATE")
 	player.update_animation("attack")
 	animation_player.animation_finished.connect(end_attack)
 	audio.stream = attack_sound
@@ -22,10 +23,12 @@ func enter() -> void:
 	attacking = true
 	
 	await get_tree().create_timer(0.075).timeout
-	hurt_box.monitoring = true
+	if attacking:
+		hurt_box.monitoring = true
 	pass
 
 func exit() -> void:
+	print("FINISH ATTACK STATE")
 	animation_player.animation_finished.disconnect(end_attack)
 	attacking = false
 	hurt_box.monitoring = false

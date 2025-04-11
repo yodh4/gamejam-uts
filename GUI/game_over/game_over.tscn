@@ -1,0 +1,56 @@
+[gd_scene load_steps=3 format=3 uid="uid://d0h3b663t05tl"]
+
+[ext_resource type="Script" path="res://GUI/game_over/game_over.gd" id="1_qa5er"]
+[ext_resource type="Script" path="res://GUI/game_over/change_scene.gd" id="2_2sk2h"]
+
+[node name="GameOver" type="ColorRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0122659, 0.0808309, 0.0539157, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -114.5
+offset_top = -41.0
+offset_right = 114.5
+offset_bottom = 41.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="Title" type="Label" parent="VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 40
+text = "game over"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="stats1" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+script = ExtResource("1_qa5er")
+
+[node name="stats2" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+script = ExtResource("1_qa5er")
+
+[node name="MainMenu" type="LinkButton" parent="VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Main Menu"
+script = ExtResource("2_2sk2h")

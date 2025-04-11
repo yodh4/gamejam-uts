@@ -1,0 +1,44 @@
+[gd_scene load_steps=2 format=3 uid="uid://be1gpprjk7i05"]
+
+[ext_resource type="Script" path="res://GUI/main_menu/main_menu.gd" id="1_oajpw"]
+
+[node name="MainMenu" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "Rot In
+bloom"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+
+[node name="Continue" type="Button" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Continue"
+script = ExtResource("1_oajpw")
+
+[node name="NewGame" type="Button" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "New Game"
+script = ExtResource("1_oajpw")
+
+[node name="Quit" type="Button" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Exit Game"
+script = ExtResource("1_oajpw")

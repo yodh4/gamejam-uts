@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://bykseysnn421c"]
+
+[ext_resource type="Script" path="res://GUI/player_record/player_hp.gd" id="1_gp0wq"]
+
+[node name="PlayerHp" type="MarginContainer"]
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 0
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 13
+uppercase = true
+script = ExtResource("1_gp0wq")

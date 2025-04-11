@@ -19,13 +19,24 @@ var max_hp : int = 6
 @onready var hit_box: HitBox = $HitBox
 
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	print("✅ Player ready, pending_load =", GameManager.pending_load)
 	PlayerManager.player = self
 	state_machine.initialize(self)
+	
 	hit_box.damaged.connect(take_damage)
 	update_hp(99)
+	print("🧍 Player pos:", global_position)
+	if GameManager.pending_load:
+		print("📥 Loading saved state into player")
+		var data = GameManager.current_save.player
+		PlayerManager.set_health(data.hp, data.max_hp)
+		PlayerManager.set_player_position(Vector2(data.pos_x, data.pos_y))
+		PlayerManager.duration_survived = data.duration_survived
+		PlayerManager.enemies_killed = data.enemies_killed
+		GameManager.load_monsters()
+		GameManager.pending_load = false
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -74,8 +85,7 @@ func take_damage(hurt_box : HurtBox) -> void:
 	if hp > 0:
 		player_damaged.emit(hurt_box)
 	else:
-		player_damaged.emit(hurt_box)
-		update_hp(99)
+		get_tree().change_scene_to_file(str("res://GUI/game_over/game_over.tscn"))
 	pass
 
 func update_hp(delta : int)-> void:

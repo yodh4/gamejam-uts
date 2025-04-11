@@ -11,18 +11,20 @@ config_version=5
 [application]
 
 config/name="gamejam-UTS"
-run/main_scene="res://playground.tscn"
+run/main_scene="res://GUI/main_menu/main_menu.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 PlayerManager="*res://00_globals/global_player_manager.gd"
+GameManager="*res://00_globals/global_game_manager.gd"
+PauseMenu="*res://GUI/pause_menu/PauseMenu.tscn"
 
 [display]
 
-window/size/viewport_width=480
-window/size/viewport_height=270
+window/size/viewport_width=640
+window/size/viewport_height=360
 window/size/window_width_override=1920
 window/size/window_height_override=1080
 window/stretch/mode="viewport"

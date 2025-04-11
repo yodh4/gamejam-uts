@@ -5,11 +5,9 @@ class_name EnemyStateIdle extends EnemyState
 @export_category("AI")
 @export var state_duration_min : float = 0.5
 @export var state_duration_max : float = 1.5
-
 @export var after_idle_state : EnemyState
 
 var timer : float = 0.0
-
 
 ## What happend when we initialize this State
 func init() -> void:

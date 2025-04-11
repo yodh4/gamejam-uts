@@ -4,6 +4,8 @@ signal direction_changed(new_direction: Vector2)
 signal enemy_damaged(hurt_box : HurtBox)
 signal enemy_destroyed(hurt_box : HurtBox)
 
+@export var enemy_type : String
+
 const DIR_4 = [Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT, Vector2.UP]
 
 @export var hp : int = 3
@@ -21,11 +23,20 @@ var player : Player
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	print("👹 Monster siap:", self.name, "at", global_position)
 	state_machine.initialize(self)
 	player = PlayerManager.player
+	add_to_group("enemy")
 	hit_box.damaged.connect(take_damage)
+	
+	#print("👹 [READY] Monster", self.name, "pos sebelum state_machine:", global_position)
+	#player = PlayerManager.player
+	#add_to_group("enemy")
+	#hit_box.damaged.connect(take_damage)
+#
+	#await get_tree().process_frame
+	#print("👣 [AFTER FRAME] Posisi monster:", global_position)
 	pass 
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float):
@@ -55,6 +66,7 @@ func set_direction(new_direction : Vector2) -> bool:
 
 func update_animation(state : String) -> void:
 	if state == "destroyed":
+		PlayerManager.enemies_killed += 1
 		animation_player.play(state)
 	animation_player.play(state + "_" + anim_direction())
 	pass
