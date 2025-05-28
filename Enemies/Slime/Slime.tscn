@@ -411,7 +411,7 @@ _data = {
 
 [node name="Slime" type="CharacterBody2D"]
 collision_layer = 256
-collision_mask = 16
+collision_mask = 272
 script = ExtResource("1_dxfpa")
 enemy_type = "Slime"
 

@@ -1,5 +1,8 @@
+# hit_box => Area2D for the entity takes damage
+
 class_name HitBox extends Area2D
 
+# Signal emitted when the hit box takes damage.
 signal damaged( hurt_box : HurtBox )
 
 # Called when the node enters the scene tree for the first time.

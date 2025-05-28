@@ -5,10 +5,9 @@ signal enemy_damaged(hurt_box : HurtBox)
 signal enemy_destroyed(hurt_box : HurtBox)
 
 @export var enemy_type : String
+@export var hp : int = 3
 
 const DIR_4 = [Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT, Vector2.UP]
-
-@export var hp : int = 3
 
 var cardinal_direction : Vector2 = Vector2.DOWN
 var direction : Vector2 = Vector2.ZERO
@@ -28,12 +27,6 @@ func _ready():
 	player = PlayerManager.player
 	add_to_group("enemy")
 	hit_box.damaged.connect(take_damage)
-	
-	#print("👹 [READY] Monster", self.name, "pos sebelum state_machine:", global_position)
-	#player = PlayerManager.player
-	#add_to_group("enemy")
-	#hit_box.damaged.connect(take_damage)
-#
 	#await get_tree().process_frame
 	#print("👣 [AFTER FRAME] Posisi monster:", global_position)
 	pass 

@@ -398,7 +398,7 @@ _data = {
 
 [node name="Skeleton" type="CharacterBody2D"]
 collision_layer = 256
-collision_mask = 16
+collision_mask = 272
 script = ExtResource("1_nw8tr")
 enemy_type = "Skeleton"
 hp = 4
@@ -408,8 +408,8 @@ position = Vector2(1.90735e-06, -2)
 scale = Vector2(0.681818, 0.589744)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
-position = Vector2(0, -1)
-scale = Vector2(0.773962, 0.624651)
+position = Vector2(-2.79745e-06, 11.8696)
+scale = Vector2(0.773962, 0.353347)
 shape = SubResource("CircleShape2D_8o1ob")
 debug_color = Color(0.867738, 0.00993342, 0.499956, 0.42)
 
@@ -418,8 +418,8 @@ position = Vector2(0, 5)
 scale = Vector2(0.76, 0.32)
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="HitBox"]
-position = Vector2(0, -1)
-scale = Vector2(0.773962, 0.624651)
+position = Vector2(0, -28.125)
+scale = Vector2(0.563435, 1.62465)
 shape = SubResource("CircleShape2D_8o1ob")
 debug_color = Color(0.890744, 0.0904309, 0.24477, 0.42)
 
@@ -469,6 +469,7 @@ vision_area = NodePath("../../VisionArea")
 attack_area = NodePath("../../HurtBox")
 
 [node name="VisionArea" parent="." instance=ExtResource("10_0ytie")]
+visible = false
 collision_layer = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="VisionArea"]

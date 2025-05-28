@@ -23,15 +23,19 @@ func _physics_process(delta: float) -> void:
 func initialize(enemy : Enemy) -> void:
 	states = []
 	
+	# load all concrete EnemyState classes
 	for c in get_children():
 		if c is EnemyState:
 			states.append(c)
 	
+	# initialize all concrete states
 	for s in states:
 		s.enemy = enemy
 		s.state_machine = self
 		s.init()
 	
+	# start enemy state with the first state
+	# (based on the order in the scene tree)
 	if states.size() > 0:
 		change_state(states[0])
 		process_mode = Node.PROCESS_MODE_INHERIT

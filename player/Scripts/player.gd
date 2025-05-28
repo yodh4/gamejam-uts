@@ -1,16 +1,16 @@
 class_name Player extends CharacterBody2D
 
-signal direction_changed(new_direction : Vector2)
-signal player_damaged(hurt_box : HurtBox)
+signal direction_changed(new_direction: Vector2)
+signal player_damaged(hurt_box: HurtBox)
 
 const DIR_4 = [Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT, Vector2.UP]
 
-var cardinal_direction : Vector2 = Vector2.DOWN
-var direction : Vector2 = Vector2.ZERO
+var cardinal_direction: Vector2 = Vector2.DOWN
+var direction: Vector2 = Vector2.ZERO
 
-var invulnerable : bool = false
-var hp : int = 6
-var max_hp : int = 6
+var invulnerable: bool = false
+var hp: int = 1000
+var max_hp: int = 1000
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var effect_animation_player: AnimationPlayer = $EffectAnimationPlayer
@@ -54,7 +54,7 @@ func set_direction() -> bool:
 	if direction == Vector2.ZERO:
 		return false
 	
-	var direction_id : int = int(round((direction + cardinal_direction * 0.1).angle() / TAU * DIR_4.size()))
+	var direction_id: int = int(round((direction + cardinal_direction * 0.1).angle() / TAU * DIR_4.size()))
 	var new_dir = DIR_4[direction_id]
 	
 	if new_dir == cardinal_direction:
@@ -66,7 +66,7 @@ func set_direction() -> bool:
 	
 	return true
 	
-func update_animation(state : String) -> void:
+func update_animation(state: String) -> void:
 	animation_player.play(state + "_" + anim_direction())
 	pass
 	
@@ -78,21 +78,22 @@ func anim_direction() -> String:
 	else:
 		return "side"
 		
-func take_damage(hurt_box : HurtBox) -> void:
+func take_damage(hurt_box: HurtBox) -> void:
 	if invulnerable == true:
 		return
 	update_hp(-hurt_box.damage)
 	if hp > 0:
 		player_damaged.emit(hurt_box)
+		move_to_safe_spot()
 	else:
 		get_tree().change_scene_to_file(str("res://GUI/game_over/game_over.tscn"))
 	pass
 
-func update_hp(delta : int)-> void:
+func update_hp(delta: int) -> void:
 	hp = clampi(hp + delta, 0, max_hp)
 	pass
 
-func make_invulnerable(duration : float = 1.0) -> void:
+func make_invulnerable(duration: float = 2.0) -> void:
 	invulnerable = true
 	hit_box.monitoring = false
 	
@@ -100,3 +101,50 @@ func make_invulnerable(duration : float = 1.0) -> void:
 	invulnerable = false
 	hit_box.monitoring = true
 	pass
+
+func move_to_safe_spot() -> void:
+	var camera_limits = {
+		"left": 0,
+		"top": 0,
+		"right": 1155, 
+		"bottom": 660    
+	}
+	var margin = 32
+
+	var map_bounds = Rect2(
+		camera_limits.left + margin,
+		camera_limits.top + margin,
+		camera_limits.right - camera_limits.left - margin * 2,
+		camera_limits.bottom - camera_limits.top - margin * 2
+	)
+	var step = 100
+	var safe_pos = global_position
+	var min_enemies = 9999
+
+	for x in range(map_bounds.position.x, map_bounds.end.x, step):
+		for y in range(map_bounds.position.y, map_bounds.end.y, step):
+			var pos = Vector2(x, y)
+			var count = 0
+			for enemy in get_tree().get_nodes_in_group("enemy"):
+				if enemy.global_position.distance_to(pos) < 100:
+					count += 1
+			if count < min_enemies:
+				min_enemies = count
+				safe_pos = pos
+	
+	safe_pos.x = clamp(safe_pos.x, camera_limits.left, camera_limits.right)
+	safe_pos.y = clamp(safe_pos.y, camera_limits.top, camera_limits.bottom)
+	global_position = safe_pos
+	
+	var camera = $Camera2D
+	# if camera:
+	# 	camera.global_position = global_position
+	# 	camera.position = global_position
+	# 	print("🛡️ Moved player to safe spot at", global_position, "with", min_enemies, "enemies nearby")
+	# else:
+	# 	print("⚠️ Camera2D not found, cannot update position")
+	# 	pass
+	if camera:
+		camera.make_current()
+		# camera.force_update_scroll()
+		print("🛡️ Moved player to safe spot at", global_position, "with", min_enemies, "enemies nearby")

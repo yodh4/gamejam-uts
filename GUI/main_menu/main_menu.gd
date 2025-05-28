@@ -22,6 +22,8 @@ func setup_screen():
 	pass
 
 func start_game() -> void:
+	PlayerManager.enemies_killed = 0
+	PlayerManager.duration_survived = 0
 	var scene = load("res://MainLevel.tscn")
 	var new_scene = scene.instantiate()
 	get_tree().root.add_child(new_scene)
