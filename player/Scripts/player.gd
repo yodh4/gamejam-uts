@@ -9,8 +9,8 @@ var cardinal_direction: Vector2 = Vector2.DOWN
 var direction: Vector2 = Vector2.ZERO
 
 var invulnerable: bool = false
-var hp: int = 1000
-var max_hp: int = 1000
+var hp: int = 6
+var max_hp: int = 6
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var effect_animation_player: AnimationPlayer = $EffectAnimationPlayer
@@ -93,7 +93,7 @@ func update_hp(delta: int) -> void:
 	hp = clampi(hp + delta, 0, max_hp)
 	pass
 
-func make_invulnerable(duration: float = 2.0) -> void:
+func make_invulnerable(duration: float = 3.0) -> void:
 	invulnerable = true
 	hit_box.monitoring = false
 	
