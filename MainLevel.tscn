@@ -12,14 +12,8 @@
 position = Vector2(-4, -3)
 scale = Vector2(1.48002, 1.15052)
 
-[node name="Slime" parent="." instance=ExtResource("1_kn5wg")]
-position = Vector2(294, 155)
-
 [node name="Player" parent="." instance=ExtResource("2_xbyuw")]
 position = Vector2(204, 139)
-
-[node name="Skeleton" parent="." instance=ExtResource("3_kn5ci")]
-position = Vector2(245, 156)
 
 [node name="Spawner1" type="Node2D" parent="."]
 position = Vector2(106, 124)

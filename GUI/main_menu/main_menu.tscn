@@ -19,7 +19,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 30
 text = "Rot In
-bloom"
+blossom"
 horizontal_alignment = 1
 uppercase = true
 
