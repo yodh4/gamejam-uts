@@ -109,7 +109,7 @@ func move_to_safe_spot() -> void:
 		"right": 1155, 
 		"bottom": 660    
 	}
-	var margin = 32
+	var margin = 60
 
 	var map_bounds = Rect2(
 		camera_limits.left + margin,
@@ -137,14 +137,6 @@ func move_to_safe_spot() -> void:
 	global_position = safe_pos
 	
 	var camera = $Camera2D
-	# if camera:
-	# 	camera.global_position = global_position
-	# 	camera.position = global_position
-	# 	print("🛡️ Moved player to safe spot at", global_position, "with", min_enemies, "enemies nearby")
-	# else:
-	# 	print("⚠️ Camera2D not found, cannot update position")
-	# 	pass
 	if camera:
 		camera.make_current()
-		# camera.force_update_scroll()
-		print("🛡️ Moved player to safe spot at", global_position, "with", min_enemies, "enemies nearby")
+		print("Moved player to safe spot at", global_position, "with", min_enemies, "enemies nearby")
